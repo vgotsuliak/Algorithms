@@ -1,3 +1,5 @@
+package arrays;
+
 import java.util.Random;
 
 public class TeamMatch {

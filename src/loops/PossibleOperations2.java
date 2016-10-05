@@ -1,3 +1,5 @@
+package loops;
+
 public class PossibleOperations2 {
 
     public static void main(String[] args) {

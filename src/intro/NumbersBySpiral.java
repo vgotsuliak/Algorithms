@@ -1,3 +1,5 @@
+package intro;
+
 public class NumbersBySpiral {
 
     public static void main(String[] args) {
