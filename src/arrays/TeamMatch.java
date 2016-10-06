@@ -39,7 +39,7 @@ public class TeamMatch {
         printArray(teamMatches);
     }
 
-    private static void printArray(Integer[][] array) {
+    public static void printArray(Integer[][] array) {
         for (int i = 0; i < array.length; i++) {
             System.out.println();
             for (int j = 0; j < array[i].length; j++) {
