@@ -7,18 +7,14 @@ import java.io.UnsupportedEncodingException;
 public class FractalOptimized {
 
     public static void main(String[] args) {
-        generateFractal(81);
+        generateFractal(243);
     }
 
     private static void generateFractal(int n) {
         int[][] matrix = new int[n][n];
-        for (int row = 0; row < n; row++) {
-            System.out.println();
-            for (int col = 0; col < n; col++) {
-                matrix[col][row] = 0;
-            }
-        }
-        matrix = fillCenter(matrix);
+        int from = 0;
+        int to = n - 1;
+        matrix = fillCenter(matrix, from, to, from, to);
         printMatrixInHtml(matrix);
         printMatrix(matrix);
         findAllInners(matrix);
@@ -29,11 +25,11 @@ public class FractalOptimized {
         System.out.println(innersCount);
     }
 
-    private static int[][] fillCenter(int[][] matrix) {
-        int margin = matrix.length / 3;
-        for (int row = 0; row < matrix.length; row++) {
-            for (int col = 0; col < matrix[row].length; col++) {
-                if (row >= margin && row < matrix[row].length - margin && col >= margin && col < matrix[row].length - margin) {
+    private static int[][] fillCenter(int[][] matrix, int fromCol, int toCol, int fromRow, int toRow) {
+        int margin = (toCol - fromCol + 1) / 3;
+        for (int row = fromRow; row <= toRow; row++) {
+            for (int col = fromCol; col <= toCol; col++) {
+                if ((row - fromRow >= margin && row <= toRow - margin) && (col - fromCol >= margin && col <= toCol - margin)) {
                     matrix[row][col] = 1;
                 }
             }
@@ -41,54 +37,28 @@ public class FractalOptimized {
         if (margin == 1) {
             return matrix;
         }
-        int innerMatrixCount = matrix.length / (matrix.length / 3);
+
+        int innerMatrixCount = (toCol - fromCol + 1) / ((toCol - fromCol + 1) / 3);
+        int step = (toCol - fromCol + 1) / 3;
         if (innerMatrixCount > 1) {
-            for (int row = 0; row < innerMatrixCount; row++) {
-                for (int col = 0; col < innerMatrixCount; col++) {
-                    int matrixStartRow = row * matrix.length / 3;
-                    int matrixEndRow = matrixStartRow + margin - 1;
-                    int matrixStartCol = col * matrix.length / 3;
-                    int matrixEndCol = matrixStartCol + margin - 1;
-                    System.out.println("inner matrix: " + row + " - " + col + "(" + matrixStartRow + "-"+matrixEndRow + ":" + matrixStartCol + "-" + matrixEndCol + ")");
-                    int[][] splitedMatrix = splitMatrix(matrix, matrixStartRow, matrixEndRow, matrixStartCol, matrixEndCol);
-                    printMatrix(splitedMatrix);
-                    int[][] filledMatrix = fillCenter(splitedMatrix);
-                    printMatrix(filledMatrix);
-                    matrix = mergeMatrix(matrix, splitedMatrix, matrixStartRow, matrixStartCol);
-                    printMatrix(matrix);
+            int currentFromRow = fromRow;
+            int currentToRow = currentFromRow + step - 1;
+            for (int row = 1; row <= innerMatrixCount; row++) {
+                int currentFromCol = fromCol;
+                int currentToCol = currentFromCol + step - 1;
+                for (int col = 1; col <= innerMatrixCount; col++) {
+                    fillCenter(matrix, currentFromCol, currentToCol, currentFromRow, currentToRow);
+                    currentFromCol += step;
+                    currentToCol += step;
                 }
+                currentFromRow += step;
+                currentToRow += step;
             }
         }
-
         return matrix;
     }
 
-    private static int[][] mergeMatrix(int[][] initial, int[][] merger, int startRow, int startCol) {
-        int mergerRow = 0;
-        for (int row = startRow; row < startRow + merger.length; row++) {
-            int mergerCol = 0;
-            for (int col = startCol; col < startCol + merger[mergerRow].length; col++) {
-                initial[row][col] = merger[mergerRow][mergerCol];
-                mergerCol++;
-            }
-            mergerRow++;
-        }
-        return initial;
-    }
 
-    private static int[][] splitMatrix(int[][] matrix, int rowFrom, int rowTo, int colFrom, int colTo) {
-        int[][] splittedMatrix = new int[rowTo - rowFrom + 1][colTo - colFrom + 1];
-        int splitedRow = 0;
-        for (int row = rowFrom; row <= rowTo; row++) {
-            int splitedCol = 0;
-            for (int col = colFrom; col <= colTo; col++) {
-                splittedMatrix[splitedRow][splitedCol] = matrix[row][col];
-                splitedCol++;
-            }
-            splitedRow++;
-        }
-        return splittedMatrix;
-    }
 
     private static void printMatrix(int[][] matrix) {
         for (int row = 0; row < matrix.length; row++) {
