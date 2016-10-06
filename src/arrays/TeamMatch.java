@@ -18,19 +18,21 @@ public class TeamMatch {
         }
 
         for (int i = 0; i < 300; i++) {
-            int team1 = new Random(System.nanoTime()).nextInt(TEAMS_COUNT);
-            int team2 = new Random(System.nanoTime()).nextInt(TEAMS_COUNT);
+            if (i % 2 > 0) {
+                int team1 = new Random(System.nanoTime()).nextInt(TEAMS_COUNT);
+                int team2 = new Random(System.nanoTime()).nextInt(TEAMS_COUNT);
 
-            if (team1 != team2) {  
-                teamMatches[team1][team2] = 1;
-                teamMatches[team2][team1] = 1;
-            }
+                if (team1 != team2) {
+                    teamMatches[team1][team2] = 1;
+                    teamMatches[team2][team1] = 1;
+                }
+            } else {
+                int queryTeam1 = new Random(System.nanoTime()).nextInt(TEAMS_COUNT);
+                int queryTeam2 = new Random(System.nanoTime()).nextInt(TEAMS_COUNT);
 
-            int queryTeam1 = new Random(System.nanoTime()).nextInt(TEAMS_COUNT);
-            int queryTeam2 = new Random(System.nanoTime()).nextInt(TEAMS_COUNT);
-
-            if (queryTeam1 != queryTeam2) {
-                System.out.println(String.format("Did team %d play with team %d - %d", queryTeam1, queryTeam2, teamMatches[queryTeam1][queryTeam2]));
+                if (queryTeam1 != queryTeam2) {
+                    System.out.println(String.format("Did team %d play with team %d - %d", queryTeam1, queryTeam2, teamMatches[queryTeam1][queryTeam2]));
+                }
             }
         }
 
