@@ -17,12 +17,6 @@ public class FractalOptimized {
         matrix = fillCenter(matrix, from, to, from, to);
         printMatrixInHtml(matrix);
         printMatrix(matrix);
-        findAllInners(matrix);
-    }
-
-    private static void findAllInners(int[][] matrix) {
-        int innersCount = matrix.length / 3;
-        System.out.println(innersCount);
     }
 
     private static int[][] fillCenter(int[][] matrix, int fromCol, int toCol, int fromRow, int toRow) {
