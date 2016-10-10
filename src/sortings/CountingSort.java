@@ -2,12 +2,14 @@ package sortings;
 
 import java.util.Arrays;
 
+import static sortings.SortingUtils.printArrayInHtml;
+
 public class CountingSort {
 
     public static void main(String[] args) {
-        int differentNumbersCount = 10;
-        int[] randomArray = SortingUtils.getRandomArray(1000, differentNumbersCount);
-        int[] sortedArray = countingSort(randomArray, 10);
+        int differentNumbersCount = 30;
+        int[] randomArray = SortingUtils.getRandomArray(30, differentNumbersCount);
+        int[] sortedArray = countingSort(randomArray, differentNumbersCount);
         System.out.println(Arrays.toString(sortedArray));
     }
 
@@ -21,6 +23,7 @@ public class CountingSort {
             for (int j = 0; j < buckets[i]; j++) {
                 array[index] = i;
                 index++;
+                printArrayInHtml(array, 30, "counting.html", i + "-" + j);
             }
         }
         return array;

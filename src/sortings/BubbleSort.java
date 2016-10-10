@@ -4,10 +4,11 @@ import java.util.Arrays;
 import java.util.Random;
 
 import static sortings.SortingUtils.getRandomArray;
+import static sortings.SortingUtils.printArrayInHtml;
 
 public class BubbleSort {
 
-    private static final int ARRAY_SIZE = 10;
+    private static final int ARRAY_SIZE = 50;
 
     public static void main(String[] args) {
         int[] randomArray = getRandomArray(ARRAY_SIZE, ARRAY_SIZE);
@@ -26,6 +27,7 @@ public class BubbleSort {
                     array[i + 1] = temp;
                 }
             }
+            printArrayInHtml(array, 50, "bubble.html", String.valueOf(j));
             n--;
         }
         return array;
