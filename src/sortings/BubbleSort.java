@@ -7,8 +7,10 @@ import static sortings.SortingUtils.getRandomArray;
 
 public class BubbleSort {
 
+    private static final int ARRAY_SIZE = 10;
+
     public static void main(String[] args) {
-        int[] randomArray = getRandomArray(100000, 100000);
+        int[] randomArray = getRandomArray(ARRAY_SIZE, ARRAY_SIZE);
         long start = System.currentTimeMillis();
         System.out.println(Arrays.toString(bubbleSort(randomArray)));
         System.out.println(System.currentTimeMillis() - start);
