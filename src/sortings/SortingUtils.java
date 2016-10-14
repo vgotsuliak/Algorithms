@@ -19,7 +19,7 @@ public class SortingUtils {
         PrintWriter writer = null;
         try {
             writer = new PrintWriter(new FileWriter(fileName, true));
-            writer.println("<div id=\"" + divId + "\"/>");
+            writer.println("<div id=\"" + divId + "\" style=\"width: 200px\"/>");
             writer.println("<table  style=\"width: 200px; height: 200px;\">");
             for (int j = 0; j <= maxNumber; j++) {
                 writer.println("<tr>");
