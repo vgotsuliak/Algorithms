@@ -1,17 +1,15 @@
 package arrays;
 
-import sun.font.FontRunIterator;
-
 import java.util.*;
 
 public class TeamMatch2 {
 
-    public static final int TEAMS_COUNT = 10000;
+    public static final int TEAMS_COUNT = 1_000_000;
 
     public static void main(String[] args) {
         Map<Integer, Set<Integer>> teams = new HashMap<>();
 
-        for (int team = 0; team < 10000; team++) {
+        for (int team = 0; team < TEAMS_COUNT; team++) {
             teams.put(team, new HashSet<>());
         }
 
@@ -31,12 +29,6 @@ public class TeamMatch2 {
             }
         }
 
-        for (int i = 0; i < 1000; i++) {
-            System.out.println();
-            for (int j = 0; j < 1000; j++) {
-                System.out.print(teams.get(i).contains(j) + "           ");
-            }
-        }
     }
 
 }
