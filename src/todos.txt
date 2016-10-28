@@ -1,0 +1,10 @@
+
+//todo - fix merge sort
+
+//todo - bubble sort with heuristic
+//todo - circle with heuristic
+//todo - number of operations with n numbers
+//todo - nesting 2D
+//todo - knapsack
+//todo - 8 queens
+//todo - a* algorithm
