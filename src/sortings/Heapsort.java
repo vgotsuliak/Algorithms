@@ -5,8 +5,8 @@ import java.util.Arrays;
 public class Heapsort {
 
     public static void main(String[] args) {
-//        int[] randomArray = SortingUtils.getRandomArray(100, 10);
-        int[] randomArray = {7, 3, 1, 6, 5, 0, 4, 6, 10, 2};
+        int[] randomArray = SortingUtils.getRandomArray(100, 10);
+//        int[] randomArray = {7, 3, 1, 6, 5, 0, 4, 6, 10, 2, 3,4,5,7,1,3,6,9,6,0,6,2,12,3,5,57,3};
         System.out.println(Arrays.toString(randomArray));
         int[] array = heapsort(randomArray);
         System.out.println(Arrays.toString(array));
@@ -17,8 +17,8 @@ public class Heapsort {
         for (int i = 0; i < array.length; i++) {
             insertElement(heap, array[i], i);
         }
-        for (int i = 0; i < heap.length; i++) {
-            array[heap.length - i - 1] = removeElement(heap, heap.length - i - 1);
+        for (int i = heap.length - 1; i >= 0; i--) {
+            array[i] = removeElement(heap, i);
         }
         return array;
     }
@@ -27,7 +27,7 @@ public class Heapsort {
         int temp = heap[0];
         heap[0] = heap[end];
         heap[end] = temp;
-        sinkElement(heap, 0, end);
+        sinkElement(heap, 0, end - 1);
         return heap[end];
     }
 
@@ -36,44 +36,27 @@ public class Heapsort {
         return floatElement(heap, position);
     }
 
-
-    private static int[] sinkElement2(int[] heap, int position, int end) {
-        int leftChildPosition = leftChildPosition(position);
-        int rightChildPosition = rightChildPosition(position);
-        if (leftChildPosition > end && rightChildPosition > end) {
+    private static int[] sinkElement(int[] heap, int position, int end) {
+        int lc = leftChildPosition(position);
+        int rc = rightChildPosition(position);
+        if (lc > end) {
             return heap;
         }
-        if (leftChildPosition <= end && heap[position] < heap[leftChildPosition]) {
-            //swap position with left
-            int temp = heap[leftChildPosition];
-            heap[leftChildPosition] = heap[position];
+        if (rc > end && heap[position] < heap[lc]) {
+            int temp = heap[lc];
+            heap[lc] = heap[position];
             heap[position] = temp;
-            sinkElement2(heap, leftChildPosition, end);
-        } else if (rightChildPosition <= end && heap[position] < heap[rightChildPosition]) {
-            int temp = heap[rightChildPosition];
-            heap[rightChildPosition] = heap[position];
+            sinkElement(heap, lc, end);
+        } else if (heap[lc] > heap[rc] && heap[position] < heap[lc]) {
+            int temp = heap[lc];
+            heap[lc] = heap[position];
             heap[position] = temp;
-            sinkElement2(heap, rightChildPosition, end);
-        }
-
-        return heap;
-    }
-
-    private static int[] sinkElement(int[] heap, int position, int end) {
-        int leftChildPosition = leftChildPosition(position);
-        int rightChildPosition = rightChildPosition(position);
-        if (leftChildPosition < end && heap[leftChildPosition] > heap[rightChildPosition]) {
-            //swap position with left
-            int temp = heap[leftChildPosition];
-            heap[leftChildPosition] = heap[position];
+            sinkElement(heap, lc, end);
+        } else if (rc <= end && heap[position] < heap[rc]) {
+            int temp = heap[rc];
+            heap[rc] = heap[position];
             heap[position] = temp;
-            sinkElement(heap, leftChildPosition, end);
-        } else if (rightChildPosition < end && heap[rightChildPosition] > heap[leftChildPosition]) {
-            int temp = heap[rightChildPosition];
-            heap[rightChildPosition] = heap[position];
-            heap[position] = temp;
-            sinkElement(heap, rightChildPosition, end);
-            //swap position with right
+            sinkElement(heap, rc, end);
         }
         return heap;
     }
