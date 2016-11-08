@@ -1,10 +1,20 @@
 
-//todo - fix merge sort
+//todo - 8 queens
 
 //todo - bubble sort with heuristic
 //todo - circle with heuristic
 //todo - number of operations with n numbers
 //todo - nesting 2D
 //todo - knapsack
-//todo - 8 queens
 //todo - a* algorithm
+
+//BFS - breadth-first search
+//todo - groups of neighboring cells
+
+//DFS - Depth-first search
+//Topological sorting
+//todo - sort clothes to wear in correct order. Use depth-first search
+
+//divide and conquer
+//todo bindary search (compare with linear)
+//todo Huffman coding (to code some text into huffman code)
