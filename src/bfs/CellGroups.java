@@ -67,7 +67,7 @@ public class CellGroups {
             if (point.x == 0) {
                 System.out.println();
             }
-            System.out.print(point.value + " ");
+            System.out.print(point.island + " ");
         }
         System.out.println();
     }
@@ -80,28 +80,28 @@ public class CellGroups {
         if (upper >= 0) { //upper neighbor
             if (field.get(upper).value == 1  && field.get(upper).island == 0) {
                 neighbors.add(field.get(upper));
-                field.get(upper).island = 1;
+                field.get(upper).island = islandNumber;
             }
         }
         int left = index - 1;
         if (left >= 0) { //left neighbor
             if (field.get(left).value == (1)  && field.get(left).island == 0) {
                 neighbors.add(field.get(left));
-                field.get(left).island = 1;
+                field.get(left).island = islandNumber;
             }
         }
         int bottom = index + ARRAY_DIMENSION;
         if (bottom <= field.size()) { //bottom neighbor
             if (field.get(bottom).value == (1)  && field.get(bottom).island == 0) {
                 neighbors.add(field.get(bottom));
-                field.get(bottom).island = 1;
+                field.get(bottom).island = islandNumber;
             }
         }
         int right = index + 1;
         if (right <= field.size()) { //right neighbor
             if (field.get(right).value == (1) && field.get(right).island == 0) {
                 neighbors.add(field.get(right));
-                field.get(right).island = 1;
+                field.get(right).island = islandNumber;
             }
         }
         return neighbors;
