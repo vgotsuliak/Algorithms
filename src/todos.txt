@@ -6,10 +6,6 @@
 //todo - number of operations with n numbers
 //todo - nesting 2D
 //todo - knapsack
-//todo - a* algorithm
-
-//BFS - breadth-first search
-//todo - groups of neighboring cells
 
 //DFS - Depth-first search
 //Topological sorting
