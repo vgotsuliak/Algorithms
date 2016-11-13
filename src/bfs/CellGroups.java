@@ -1,10 +1,12 @@
 package bfs;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.*;
 
 public class CellGroups {
 
-    public static final int ARRAY_DIMENSION = 20;
+    public static final int ARRAY_DIMENSION = 19;
     public static Set<Point> processedPoints = new HashSet<>();
 
     private static class Point {
@@ -35,58 +37,39 @@ public class CellGroups {
         }
     }
 
-    public static List<Point> generateField() {
-        List<Point> points = new ArrayList<>();
-        for (int i = 0; i < ARRAY_DIMENSION; i++) {
-            for (int j = 0; j < ARRAY_DIMENSION; j++) {
-                Point point = new Point(i, j, 0);
-                points.add(point);
+    public static List<Point> getField() {
+        List<Point> field = new ArrayList<>();
+        try {
+            Scanner in = new Scanner(new FileReader("src/bfs/field.txt"));
+            String line = null;
+            int y = 0;
+            int arrayDimension = 0;
+            while (in.hasNextLine()) {
+                line = in.nextLine();
+                arrayDimension = line.length();
+                int x = 0;
+                for (char c : line.toCharArray()) {
+                    Point vertex = new Point(x, y, Integer.valueOf(String.valueOf(c)));
+                    field.add(vertex);
+                    x++;
+                }
+                y++;
             }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
-        return points;
-    }
-
-    public static Point getPoint(int x, int y, List<Point> field) {
-        for (Point point : field) {
-            if (point.x == x && point.y == y) {
-                return point;
-            }
-        }
-        throw new IllegalArgumentException();
-    }
-
-    public static List<Point> createIslands(List<Point> field) {
-        for (Point point : field) {
-            if (point.x == 3 && point.y == 3) {
-                point.value = 1;
-            }
-            if (point.x == 4 && point.y == 3) {
-                point.value = 1;
-            }
-            if (point.x == 5 && point.y == 3) {
-                point.value = 1;
-            }
-            if (point.x == 3 && point.y == 4) {
-                point.value = 1;
-            }
-            if (point.x == 14 && point.y == 15) {
-                point.value = 1;
-            }
-            if (point.x == 14 && point.y == 14) {
-                point.value = 1;
-            }
-        }
-
         return field;
+
     }
 
     public static void printField(List<Point> field) {
         for (Point point : field) {
-            if (point.y == 0) {
+            if (point.x == 0) {
                 System.out.println();
             }
-            System.out.print(point.value);
+            System.out.print(point.value + " ");
         }
+        System.out.println();
     }
 
     public static List<Point> getPointNeighbors(List<Point> field, Point point, int islandNumber) {
@@ -134,22 +117,23 @@ public class CellGroups {
     }
 
     public static void main(String[] args) {
-        List<Point> field = generateField();
-        List<Point> fieldWithIslands = createIslands(field);
-        printField(fieldWithIslands);
-        int islandNumber = 1;
-        for (int i = 0; i < fieldWithIslands.size(); i++) {
-            List<Point> allNeighbors = new ArrayList<>();
-            if (fieldWithIslands.get(i).value == 1) {
-                List<Point> pointNeighbors = getPointNeighbors(fieldWithIslands, Arrays.asList(fieldWithIslands.get(i)), islandNumber);
+        List<Point> field = getField();
+        printField(field);
+        int islandNumber = 0;
+        List<Point> allNeighbors = new ArrayList<>();
+        for (int i = 0; i < field.size(); i++) {
+            if (field.get(i).value == 1 && field.get(i).island == 0) {
+                islandNumber++;
+                List<Point> pointNeighbors = getPointNeighbors(field, Arrays.asList(field.get(i)), islandNumber);
                 while (!pointNeighbors.isEmpty()) {
                     allNeighbors.addAll(pointNeighbors);
-                    pointNeighbors = getPointNeighbors(fieldWithIslands, pointNeighbors, islandNumber);
+                    pointNeighbors = getPointNeighbors(field, pointNeighbors, islandNumber);
                 }
-                islandNumber++;
             }
-            System.out.println(allNeighbors);
         }
+        System.out.println(allNeighbors);
+        printField(field);
+        System.out.println(field);
     }
 
 }
