@@ -15,4 +15,4 @@
 //todo bindary search (compare with linear)
 //todo Huffman coding (to code some text into huffman code)
 
-//Course project - face recognition, detect eyes
+//Course project - face recognition, detect eyes and draw bluemark

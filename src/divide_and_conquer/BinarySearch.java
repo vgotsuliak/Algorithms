@@ -3,7 +3,6 @@ package divide_and_conquer;
 import sortings.SortingUtils;
 
 import java.util.Arrays;
-import java.util.Collections;
 
 public class BinarySearch {
 
